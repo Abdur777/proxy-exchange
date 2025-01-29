@@ -18,7 +18,7 @@ app.get('/depth', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/tickers', async (_req: Request, res: Response) => {
+app.get('/tickers', async (req: Request, res: Response) => {
     try {
         const response = await fetch('https://api.backpack.exchange/api/v1/tickers');
         const data = await response.json();
@@ -28,9 +28,11 @@ app.get('/tickers', async (_req: Request, res: Response) => {
     }
 });
 
-app.get('/kline', async (_req: Request, res: Response) => {
+app.get('/kline', async (req: Request, res: Response) => {
     try {
-        const response = await fetch('https://api.backpack.exchange/api/v1/klines?symbol=SOL_USDC&interval=15m&startTime=1737909000');
+        const market = req.query.symbol as string;
+        console.log(market);
+        const response = await fetch(`https://api.backpack.exchange/api/v1/klines?symbol=${market}&interval=15m&startTime=1737909000`);
         const data = await response.json();
         console.log("from kline", data);
         res.json(data);
@@ -39,9 +41,11 @@ app.get('/kline', async (_req: Request, res: Response) => {
     }
 });
 
-app.get('/trades', async (_req: Request, res: Response) => {
+app.get('/trades', async (req: Request, res: Response) => {
     try {
-        const response = await fetch('https://api.backpack.exchange/api/v1/trades?symbol=SOL_USDC&limit=50');
+        const market = req.query.symbol as string;
+        console.log(market);
+        const response = await fetch(`https://api.backpack.exchange/api/v1/trades?symbol=${market}&limit=50`);
         const data = await response.json();
         res.json(data);
     } catch (error) {
