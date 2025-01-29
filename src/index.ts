@@ -31,10 +31,10 @@ app.get('/tickers', async (req: Request, res: Response) => {
 app.get('/kline', async (req: Request, res: Response) => {
     try {
         const market = req.query.symbol as string;
-        console.log(market);
+        // console.log("market");
         const response = await fetch(`https://api.backpack.exchange/api/v1/klines?symbol=${market}&interval=15m&startTime=1737909000`);
         const data = await response.json();
-        console.log("from kline", data);
+        // console.log("from kline", data);
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data' });
