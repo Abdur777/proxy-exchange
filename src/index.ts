@@ -6,6 +6,7 @@ const app = express();
 const port = 5001;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/depth', async (req, res) => {
     try {
@@ -53,5 +54,4 @@ app.get('/trades', async (req, res) => {
     }
 });
 
-
-export default app;
+module.exports = app;
