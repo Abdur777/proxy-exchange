@@ -32,7 +32,7 @@ app.get('/kline', async (req: Request, res: Response) => {
     try {
         const market = req.query.symbol as string;
         const currentDate = new Date();
-        currentDate.setMonth(currentDate.getMonth() - 1);
+        currentDate.setUTCMonth(currentDate.getUTCMonth() - 1);
         const startTime = Math.floor(currentDate.getTime() / 1000);
         const response = await fetch(`https://api.backpack.exchange/api/v1/klines?symbol=${market}&interval=15m&startTime=${startTime}`);
         const data = await response.json();
