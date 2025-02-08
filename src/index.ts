@@ -53,6 +53,24 @@ app.get('/trades', async (req: Request, res: Response) => {
     }
 });
 
+app.get("/line", async (req, res) => {
+    try {
+        const response = await fetch("https://api.backpack.exchange/wapi/v1/marketDataKlines?interval=6h&startTime=1738405800&endTime=1739014200");
+        const lineDataArray = await response.json();
+        const lineDataMap = lineDataArray.reduce((acc: any, entry: any) => {
+            acc[entry.symbol] = entry.data;
+            return acc;
+          }, {} as Record<string, { price: number }[]>);
+
+        console.log(lineDataMap);
+        res.json(lineDataMap);
+    } catch (error) {
+        console.error("Error fetching market data:", error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
