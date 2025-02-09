@@ -32,7 +32,7 @@ app.get('/kline', async (req: Request, res: Response) => {
     try {
         const market = req.query.symbol as string;
         // console.log("market");
-        const response = await fetch(`https://api.backpack.exchange/api/v1/klines?symbol=${market}&interval=15m&startTime=1738207800`);
+        const response = await fetch(`https://api.backpack.exchange/api/v1/klines?symbol=${market}&interval=15m&startTime=1738816200`);
         const data = await response.json();
         // console.log("from kline", data);
         res.json(data);
